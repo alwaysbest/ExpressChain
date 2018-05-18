@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: ecnet
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: liuyin
+Implementation-Vendor-Id: com.ecm
+Build-Jdk: 1.8.0_171
+Implementation-URL: http://projects.spring.io/spring-boot/ecnet/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+
