@@ -1,5 +1,5 @@
 package com.exp.dao;
 
-public class WareDao {
+public interface WareDao {
 
 }

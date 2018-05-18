@@ -1,5 +1,5 @@
 package com.exp.dao;
 
-public class EmpDao {
+public interface EmpDao {
 
 }
