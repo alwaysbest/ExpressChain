@@ -1,4 +1,4 @@
-package com.ecm;
+package com.exp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,16 +10,13 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication
 @EnableAsync
 //@MapperScan("com.ecm.dao")
-public class EcNetApplication extends SpringBootServletInitializer implements EmbeddedServletContainerCustomizer {
+public class ExpressApplication extends SpringBootServletInitializer {
 
-	@Override
-	public void customize(ConfigurableEmbeddedServletContainer container) {
-		container.setPort(8099);
-	}
+	
 
-	public static void main(String[] args) {
-		SpringApplication.run(EcNetApplication.class, args);
-	}
+//	public static void main(String[] args) {
+//		SpringApplication.run(EcNetApplication.class, args);
+//	}
 
 
 
