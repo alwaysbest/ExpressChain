@@ -1,6 +1,6 @@
 package com.exp.model;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,9 +19,9 @@ public class Business {
 	@Column(name = "business_order_status")
 	private int oStatus;
 	@Column(name = "business_order_intime")
-	private Timestamp oIntime;
+	private Date oIntime;
 	@Column(name = "business_order_outtime")
-	private Timestamp oOuttime;
+	private Date oOuttime;
 	
 	public int getbId() {
 		return bId;
@@ -48,16 +48,16 @@ public class Business {
 	public void setoStatus(int oStatus) {
 		this.oStatus = oStatus;
 	}
-	public Timestamp getoIntime() {
+	public Date getoIntime() {
 		return oIntime;
 	}
-	public void setoIntime(Timestamp oIntime) {
+	public void setoIntime(Date oIntime) {
 		this.oIntime = oIntime;
 	}
-	public Timestamp getoOuttime() {
+	public Date getoOuttime() {
 		return oOuttime;
 	}
-	public void setoOuttime(Timestamp oOuttime) {
+	public void setoOuttime(Date oOuttime) {
 		this.oOuttime = oOuttime;
 	}
 	

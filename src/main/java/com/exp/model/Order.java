@@ -10,7 +10,7 @@ import javax.persistence.Table;
 public class Order {
 	@Id
 	@Column(name="order_id")
-	private int oId;
+	private String oId;
 	@Column(name="order_product")
 	private String opName;
 	@Column(name="order_user_send")
@@ -27,10 +27,10 @@ public class Order {
 	private int oeId;
 	@Column(name="order_status")
 	private int oStatus;
-	public int getoId() {
+	public String getoId() {
 		return oId;
 	}
-	public void setoId(int oId) {
+	public void setoId(String oId) {
 		this.oId = oId;
 	}
 	public String getOpName() {
