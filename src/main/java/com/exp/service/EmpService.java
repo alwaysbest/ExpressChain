@@ -1,5 +1,5 @@
 package com.exp.service;
 
-public class EmpService {
+public interface EmpService {
 
 }
