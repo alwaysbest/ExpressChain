@@ -1,5 +1,5 @@
 package com.exp.model;
 
-public class Route {
+public class RouteWW {
 
 }
