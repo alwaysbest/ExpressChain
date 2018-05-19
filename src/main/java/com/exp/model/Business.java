@@ -10,10 +10,10 @@ import javax.persistence.Table;
 @Table(name="business")
 public class Business {
 	@Id
+	@Column(name="id")
+	private int id;
 	@Column(name = "business_id")
 	private int bId;
-	@Column(name = "business_name")
-	private String bName;
 	@Column(name = "business_order")
 	private String bOrder;
 	@Column(name = "business_order_status")
@@ -29,11 +29,12 @@ public class Business {
 	public void setbId(int bId) {
 		this.bId=bId;
 	}
-	public String getbName() {
-		return bName;
+	
+	public int getId() {
+		return id;
 	}
-	public void setbName(String bName) {
-		this.bName = bName;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getbOrder() {
 		return bOrder;
