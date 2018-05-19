@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.exp.model.Employer;
 
 public interface EmpDao extends JpaRepository<Employer, Integer>{
-	public Employer findById(int id);
+	public Employer findByeId(int eId);
 }
