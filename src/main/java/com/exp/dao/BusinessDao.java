@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.exp.model.Business;
 
-public interface BusniessDao extends JpaRepository<Business, Integer>{
+public interface BusinessDao extends JpaRepository<Business, Integer>{
 	public Business findById(int id);
 	public List<Business> findBybOrder(String bOrder);
 	Business save(Business business);

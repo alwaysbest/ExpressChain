@@ -14,8 +14,16 @@ public class Employer {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="employer_id")
 	private int eId;
-	@Column(name="employer_name")
+	@Column(name="emp_name")
 	private String eName;
+	@Column(name="emp_telephone")
+	private String eTele;
+	public String geteTele() {
+		return eTele;
+	}
+	public void seteTele(String eTele) {
+		this.eTele = eTele;
+	}
 	public int geteId() {
 		return eId;
 	}

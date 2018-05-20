@@ -11,7 +11,7 @@ import com.exp.model.Warehouse;
 
 public interface WareDao extends JpaRepository<Warehouse, Integer>{
 	public Warehouse findById(int id);
-	public List<Warehouse> findBywoId(int woId);
+	public List<Warehouse> findBywoId(String woId);
 	Warehouse save(Warehouse warehouse);
 	@Modifying
 	@Query(value="update Warehouse w set w.woIntime=?3 where w.woId=?1 and w.wId=?2 ")

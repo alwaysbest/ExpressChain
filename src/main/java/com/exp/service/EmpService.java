@@ -1,5 +1,7 @@
 package com.exp.service;
 
-public interface EmpService {
+import com.exp.model.Employer;
 
+public interface EmpService {
+	public Employer getEmpById(int id);
 }
