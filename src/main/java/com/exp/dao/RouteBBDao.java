@@ -10,4 +10,5 @@ public interface RouteBBDao extends JpaRepository<RouteBB, Integer>{
 	public RouteBB findById(int id);
 	public List<RouteBB> findBybId(int bId);
 	public List<RouteBB> findBybbId(int bbId);
+	public List<RouteBB> findAll();
 }

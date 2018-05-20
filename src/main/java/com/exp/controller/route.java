@@ -7,21 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.exp.dao.RouteBBDao;
-import com.exp.dao.UserDao;
-import com.exp.model.User;
-import com.exp.service.UserService;
-
+import com.exp.model.RouteBB;
 @RestController
-public class test {
-	
+public class route {
 	@Autowired
-	UserService userService;
-	
-	@RequestMapping("/user")
-	User hello() {
-		//UserDao userDao = null;
-		return userService.getUserById(1);
-		
+	RouteBBDao routeBBDao;
+	@RequestMapping("/route")
+	List<RouteBB> getRoute(){
+		return routeBBDao.findAll();
 	}
-	
 }

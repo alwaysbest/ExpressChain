@@ -14,9 +14,9 @@ public class Order {
 	@Column(name="order_product")
 	private String opName;
 	@Column(name="order_user_send")
-	private int ousId;
+	private String ousTele;
 	@Column(name="order_user_receive")
-	private int ourId;
+	private String ourTele;
 	@Column(name="order_employer_receive")
 	private int oerId;
 	@Column(name="order_employer_send")
@@ -27,6 +27,14 @@ public class Order {
 	private int oeId;
 	@Column(name="order_status")
 	private int oStatus;
+	@Column(name="order_route")
+	private String oRoute;
+	public String getoRoute() {
+		return oRoute;
+	}
+	public void setoRoute(String oRoute) {
+		this.oRoute = oRoute;
+	}
 	public String getoId() {
 		return oId;
 	}
@@ -39,17 +47,18 @@ public class Order {
 	public void setOpName(String opName) {
 		this.opName = opName;
 	}
-	public int getOusId() {
-		return ousId;
+	
+	public String getOusTele() {
+		return ousTele;
 	}
-	public void setOusId(int ousId) {
-		this.ousId = ousId;
+	public void setOusTele(String ousTele) {
+		this.ousTele = ousTele;
 	}
-	public int getOurId() {
-		return ourId;
+	public String getOurTele() {
+		return ourTele;
 	}
-	public void setOurId(int ourId) {
-		this.ourId = ourId;
+	public void setOurTele(String ourTele) {
+		this.ourTele = ourTele;
 	}
 	public int getOerId() {
 		return oerId;
