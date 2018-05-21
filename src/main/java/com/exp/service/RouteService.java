@@ -12,5 +12,6 @@ public interface RouteService {
 //	public Graph setGraph();
 //	public int[] getResRoute(int start,int end);
 	
-	
+	public int[][] getAllroute();
+	public String getShortestRoute(int start,int end);
 }

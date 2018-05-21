@@ -16,12 +16,15 @@ import com.exp.dao.UserDao;
 import com.exp.model.Order;
 import com.exp.model.User;
 import com.exp.service.OrderService;
+import com.exp.service.RouteService;
 @Service
 public class OrderImpl implements OrderService {
 	@Autowired
 	private OrderDao orderDao;
 	@Autowired
 	private UserDao userDao;
+	@Autowired
+	RouteService routeService;
 	@Override
 	public Order getOrderById(int id) {
 		// TODO Auto-generated method stub
@@ -39,6 +42,7 @@ public class OrderImpl implements OrderService {
 	public Order getOrder(String product, String usName,String urName,String uSender, String uReceive,int eReceive, int eSender, int start, int end,
 			int status) {
 		// TODO Auto-generated method stub
+		String route = routeService.getShortestRoute(start, end);
 		String oId = getOrderId();
 		Order order = new Order();
 		order.setoId(oId);
@@ -49,7 +53,7 @@ public class OrderImpl implements OrderService {
 		order.setOesId(eSender);
 		order.setOeId(end);
 		order.setOsId(start);
-		order.setoRoute(null);
+		order.setoRoute(route);
 		save(order);
 		User user1 = new User();
 		user1.setuName(usName);

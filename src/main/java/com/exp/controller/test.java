@@ -17,10 +17,10 @@ public class test {
 	@Autowired
 	RouteService routeService;
 	@RequestMapping("/user")
-	void hello() {
+	String hello() {
 		//UserDao userDao = null;
 		
-		
+	return routeService.getShortestRoute(1001,1002);
 		
 	}
 	

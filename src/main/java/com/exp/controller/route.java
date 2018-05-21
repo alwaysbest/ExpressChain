@@ -16,6 +16,6 @@ public class route {
 	OrderService orderService;
 	@RequestMapping("/order")
 	Order newOrder() {
-		return orderService.getOrder("鞋子", "寄件者1", "收件者1", "18260019677", "18260029677", 1, 2, 1001, 1002, 0);
+		return orderService.getOrder("衣柜", "寄件者2", "收件者2", "18260039677", "18260049677", 1, 2, 1001, 1002, 0);
 	}
 }
