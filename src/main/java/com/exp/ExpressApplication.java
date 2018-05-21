@@ -17,6 +17,4 @@ public class ExpressApplication extends SpringBootServletInitializer {
 		SpringApplication.run(ExpressApplication.class, args);
 	}
 
-
-
 }
