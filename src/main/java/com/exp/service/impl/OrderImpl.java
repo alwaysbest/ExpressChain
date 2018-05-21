@@ -11,10 +11,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
+import com.exp.dao.BusinessDao;
+import com.exp.dao.BusinessInfoDao;
 import com.exp.dao.OrderDao;
 import com.exp.dao.UserDao;
+import com.exp.dao.WareDao;
+import com.exp.dao.WarehouseInfodao;
+import com.exp.model.Business;
+import com.exp.model.BusinessInfo;
 import com.exp.model.Order;
 import com.exp.model.User;
+import com.exp.model.Warehouse;
+import com.exp.model.WarehouseInfo;
 import com.exp.service.OrderService;
 import com.exp.service.RouteService;
 @Service
@@ -25,6 +33,14 @@ public class OrderImpl implements OrderService {
 	private UserDao userDao;
 	@Autowired
 	RouteService routeService;
+	@Autowired
+	private BusinessDao businessDao;
+	@Autowired
+	private WareDao wareDao;
+	@Autowired
+	private BusinessInfoDao businessInfoDao;
+	@Autowired
+	private WarehouseInfodao warehouseInfoDao;
 	@Override
 	public Order getOrderById(int id) {
 		// TODO Auto-generated method stub
@@ -43,6 +59,12 @@ public class OrderImpl implements OrderService {
 			int status) {
 		// TODO Auto-generated method stub
 		String route = routeService.getShortestRoute(start, end);
+		String[] routes=route.split("-");
+		int size= routes.length;
+		int[] address = new int[size];
+		for(int i=0;i<size;i++) {
+			address[i]=Integer.parseInt(routes[i]);
+		}
 		String oId = getOrderId();
 		Order order = new Order();
 		order.setoId(oId);
@@ -63,6 +85,28 @@ public class OrderImpl implements OrderService {
 		user2.setuName(usName);
 		user2.setuTelephone(uSender);
 		userDao.save(user2);
+		Business business = new Business();
+		Warehouse warehouse = new Warehouse();
+		
+		for(int i=0;i<size;i++) {
+			WarehouseInfo warehouseInfo = warehouseInfoDao.findById(address[i]);
+			BusinessInfo businessInfo = businessInfoDao.findById(address[i]);
+			if(warehouseInfo!=null) {
+				warehouse.setwId(address[i]);
+				warehouse.setWoId(oId);
+				warehouse.setWostatus(0);
+				warehouse.setwStore(1000);
+				wareDao.save(warehouse);
+				int store=warehouseInfo.getStorage();
+				store=store-1;
+				warehouseInfo.setStorage(store);
+			}else if (businessInfo!=null) {
+				business.setbId(address[i]);
+				business.setbOrder(oId);
+				business.setoStatus(0);
+				businessDao.save(business);
+			}
+		}
 		return order;
 	}
 	
