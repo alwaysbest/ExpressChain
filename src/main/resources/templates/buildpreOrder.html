@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<meta charset="UTF-8">
+<meta charset="UTF-8">
+
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>memberOrder</title>
+<link rel="stylesheet" th:href="@{css/bootstrap.min.css}"/>
+<link rel="stylesheet" th:href="@{css/animate.css}">
+<link rel="stylesheet" th:href="@{css/style.css}"/>
+ <link rel="stylesheet" th:href="@{font-awesome/css/font-awesome.min.css} "/>
+ <Link rel="stylesheet" th:href="@{css/plugins/iCheck/custom.css}"/>
+ <Link rel="stylesheet" th:href="@{css/plugins/steps/jquery.steps.css}"/>
+ <script th:src="@{js/jquery-2.1.1.js}"></script>
+ <script th:src="@{js/jquery-2.1.4.min.js}"></script>
+<script th:src="@{js/jquerysession.js}"></script>
+<script th:src="@{js/bootstrap.min.js}"></script>
+<script th:src="@{js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+<script th:src="@{js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+<!-- Custom and plugin javascript -->
+<script th:src="@{js/inspinia.js}"></script>
+<script th:src="@{js/plugins/pace/pace.min.js}"></script>
+<script th:src="@{js/plugins/wow/wow.min.js}"></script>
+ 
+  <script th:inline="javascript">
+ 	
+ 	
+ 	if($.session.get('memid')==null){
+ 		window.location.href="/login";
+ 	}
+ 	
+ </script>
+</head>
+<body>
+	<div class  ="row border-bottom">
+	<div style="margin-left:30px;margin-top:10px"  >
+	<img th:src="@{img/home.png}"/>
+	</div>
+	<div class="navbar-header nav navbar-top-links">
+	<strong><a class="navbar-brand" href="/hello"><span class="m-r-sm text-muted welcome-message" style="font-size:30px">EXPRESS＋</span></a></strong>
+	</div>
+	</div>
+	 <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-sm-6" style="margin-top:20px">
+                <label style="font-size:30px;margin-left:10px">尊敬的会员<span id="memid" style="color:#6848b9"></span></label>
+               
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb" style="margin-top:30px">
+
+                    <li class="active" style="color: #19aa8d;font-size:25px">
+                        <a href="/buildpreOrder">预约订单</a>
+                    </li>
+                    
+                    <li class="active" style="font-size:25px;margin-left:60px" >
+                        <a href="/checkmemOrder">  查看订单</a>
+                    </li>
+                    
+
+                </ol>
+            </div>
+        </div>
+          <div class="row main " >
+
+    <div class=" col-md-8 article-content"style="margin-left:150px">
+         <div class="card">
+         	<div class="card-block">
+
+				<div class="ibox float-e-margins">
+					<div class="row" style="margin-top:10px">
+						<div class="col-sm-1"><img th:src="@{img/bill.png}"/></div>
+						
+						<blockquote>
+						
+    						<p style="font-size:25px;">预约订单</p>
+						</blockquote>
+					</div>
+					
+
+                     <div class="ibox-content">
+						 <form method="post" >
+                                <!-- <div class="row form-group" hidden="hidden"><label class="col-sm-4 control-label">用户名称 *</label>
+                                    <div class="col-sm-6">
+                                        <input id="userId" name="uid" type="text" value=$.session.get('userid') placeholder="请填写用户名称" class="form-control ">
+                                    </div>
+
+                                </div> -->
+
+                                    <div class="row form-group"><label class="col-sm-3 control-label">请输入商品信息 *</label>
+                                        <div class="col-sm-6">
+                                            <input id="goodinfo" name="Pname" type="text" placeholder="请填写商品名称" class="form-control required">
+                                        </div>
+                                   
+                                      </div>
+
+                                  <div class="row form-group"><label class="col-sm-3 control-label"> 输入寄件人名字*</label>
+                                    <div class="col-sm-6">
+                                         <input id="sename" name="Sender" type="text" placeholder="请填写寄件人名字" class="form-control required">
+                                    </div>
+
+                                </div>
+                                
+                                <div class="row form-group"><label class="col-sm-3 control-label"> 输入收件人名字*</label>
+                                    <div class="col-sm-6">
+                                         <input id="rename" name="Receiver" type="text" placeholder="请填写收件人名字" class="form-control required">
+                                    </div>
+
+                                </div>
+                                   
+
+                                <div class="row form-group"><label class="col-sm-3 control-label"> 寄件人联系方式*</label>
+                                    <div class="col-sm-6">
+                                         <input id="setele" name="Send" type="text" placeholder="请填写寄件人联系方式" class="form-control required">
+                                    </div>
+
+                                </div>
+                                
+                                <div class="row form-group"><label class="col-sm-3 control-label"> 收件人联系方式*</label>
+                                    <div class="col-sm-6">
+                                         <input id="retele" name="Receive" type="text" placeholder="请填写收件人联系方式" class="form-control ">
+                                    </div>
+
+                                </div>
+
+                                <div class="hr-line-dashed"></div>
+                               
+                                <div class="row form-group"><label class="col-sm-3 control-label">设置寄件人地点*</label>
+                                    <div class="col-sm-6">
+                                       <input id="seaddress" name="Start" type="text" placeholder="请填写寄件人地点" class="form-control ">
+                                    </div>
+
+                                </div>
+                               <div class="row form-group"><label class="col-sm-3 control-label">设置收件人地点*</label>
+                                    <div class="col-sm-6">
+                                       <input id="readdress" name="End" type="text" placeholder="请填写收件人地点" class="form-control ">
+                                    </div>
+
+                                </div>
+
+                                <div class="row form-group" align="center">
+                                    <div  >
+                                        <button style="margin-left:200px"class="btn btn-white" type="button" id="cancel">取消</button>
+                                        <button class="btn btn-primary" type="button" id="build">提交</button>
+                                    </div>
+                                </div>
+
+                            </form>
+						
+                     </div>
+				</div>
+
+   
+
+            
+
+			</div>
+		</div>
+      </div>
+
+  </div>
+  <script>
+  if($.session.get('memid')==null){
+		window.location.href="/login";
+	}else{
+		
+		
+		$('#memid').text($.session.get('memid'));
+	}
+  
+  $('#cancel').click(function(){
+		 window.location.reload();
+	 });
+  
+  
+  $('#build').click(function(){
+	  var memid=$.session.get("memid");
+	  var goodinfo = $('#goodinfo').val();
+	  var sename= $('#sename').val();
+	  var  rename= $('#rename').val();
+	  var  setele= $('#setele').val();
+	  var  retele= $('#retele').val();
+	  var  seaddress= $('#seaddress').val();
+	  var readdress = $('#readdress').val();
+	  if(memid==null){
+		  alert("登陆已失效，请重新登陆");
+	  }else if(goodinfo==''){
+		  alert("商品信息不可少");
+	  }else if(sename==''){
+		  alert("寄件人不可少");
+	  }else if(rename==''){
+		  alert("收件人不可少");
+	  }else if(seaddress==''){
+		  alert("寄件人地址不可少");
+	  }else if(readdress==''){
+		  alert("收件人地址不可少");
+	  }else if(setele==''){
+		  alert("寄件人联系方式不可少");
+	  }else if(retele==''){
+		  alert("收件人联系方式不可少");
+	  }else{
+		  /* alert(seaddress.indexOf("南京市鼓楼区")); */
+		  if(seaddress.indexOf("南京市鼓楼区")==0){
+			  var busid=1001;
+		  }else if(seaddress.indexOf("南京市栖霞区")==0){
+			  var busid=1002;
+		  }else if(seaddress.indexOf("南京市江宁区")==0){
+			  var busid=1003;
+		  }else if(seaddress.indexOf("南京市浦口区")==0){
+			  var busid=1004;
+		  }else{
+			  alert("您不在服务区内");
+			  window.location.reload();
+		  }
+		  $.ajax({
+			  type:"post",
+			  url:"/member/buildpreorder",
+			  data:{"memid":memid,"sename":sename,"rename":rename,"seaddress":seaddress,"readdress":readdress,"setele":setele,"retele":retele,"goodinfo":goodinfo,"busid":busid},
+			  success:function(){
+				  alert("您已成功预约订单");
+				  window.location.reload();
+			  },error:function(XMLHttpRequest, textStatus, errorThrown) {
+	                alert(XMLHttpRequest.status);
+	                alert(XMLHttpRequest.readyState);
+	                alert(textStatus);
+	                
+	            }
+		  });
+		  
+		  
+		  
+	  }
+	  
+  });
+  </script>
+
+</body>
+</html>

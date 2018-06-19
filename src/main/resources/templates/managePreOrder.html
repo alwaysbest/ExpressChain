@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<meta charset="UTF-8">
+
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BusinessManagePreOrder</title>
+<!-- <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/> -->
+<link rel="stylesheet" th:href="@{css/bootstrap.min.css}"/>
+<link rel="stylesheet" th:href="@{css/animate.css}">
+<link rel="stylesheet" th:href="@{css/style.css}"/>
+ <link rel="stylesheet" th:href="@{font-awesome/css/font-awesome.min.css} ">
+  <script th:src="@{js/jquery-2.1.1.js}"></script>
+ <script th:src="@{js/jquery-2.1.4.min.js}"></script>
+<script th:src="@{js/jquerysession.js}"></script>
+<script th:src="@{js/bootstrap.min.js}"></script>
+<script th:src="@{js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+<script th:src="@{js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+<!-- Custom and plugin javascript -->
+<script th:src="@{js/inspinia.js}"></script>
+<script th:src="@{js/plugins/pace/pace.min.js}"></script>
+<script th:src="@{js/plugins/wow/wow.min.js}"></script>
+ 
+  <script th:inline="javascript">
+ 	
+ 	
+ 	if($.session.get('userid')==null){
+ 		window.location.href="/login";
+ 	}
+ 	
+ </script>
+</head>
+<body>
+	<div class  ="row border-bottom">
+	<div style="margin-left:30px;margin-top:10px"  >
+	<img th:src="@{img/home.png}"/>
+	</div>
+	<div class="navbar-header nav navbar-top-links">
+	<strong><a id="home"class="navbar-brand" href="/hello" ><span class="m-r-sm text-muted welcome-message" style="font-size:30px">EXPRESS＋</span></a></strong>
+	</div>
+	</div>
+	 <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-sm-6" style="margin-top:20px">
+                 <label style="font-size:30px;margin-left:10px">营业中心<span id="aid"></span></label>
+                <label style="margin-left:10px">员工编号：<span id="userlabel"></span></label>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb" style="margin-top:20px">
+
+                    <li class="active" style="font-size:25px">
+                        <a href="/buildOrder">创建订单</a>
+                    </li>
+                     <li class="active" style="color: #19aa8d;font-size:25px;margin-left:60px">
+                        <a href="/managePreOrder">处理预约</a>
+                    </li>
+                    
+                    <li class="active" style="font-size:25px;margin-left:60px" >
+                        <a href="/checkinBOrder">  管理入库</a>
+                    </li>
+                    <li class="text－center" style="font-size:25px;margin-left:60px">
+                         <a href="/checkoutBOrder">  管理出库</a>
+                    </li>
+
+                </ol>
+            </div>
+        </div>
+        
+        
+           <div class="row main " >
+
+    <div class=" col-md-8 article-content"style="margin-left:150px">
+         <div class="card">
+         	<div class="card-block">
+
+				<div class="ibox float-e-margins">
+					<div class="row" style="margin-top:10px">
+						<div class="col-sm-1"><img th:src="@{img/bill.png}"/></div>
+						
+						<blockquote>
+						
+    						<p style="font-size:25px;">处理预约</p>
+						</blockquote>
+					</div>
+					
+
+                     <div class="ibox-content">
+                     <table id="tab" border="1" width="100%">
+							<tr>
+								<th>预约单编号</th>
+								<th>收件人地址</th>
+								<th>取件员编号</th>
+								<th>处理预约单</th>
+								
+							</tr>
+						</table>
+						
+						
+                     </div>
+				</div>
+
+   
+
+            
+
+			</div>
+		</div>
+      </div>
+
+  </div>
+        
+        
+ <script>
+ if($.session.get('userid')==null){
+		window.location.href="/login";
+	}else{
+		$('#aid').text($.session.get('aid'));
+		
+		$('#userlabel').text($.session.get('userid'));
+	}
+ $('#home').click(function(){
+	 $.session.clear();
+ });
+ 
+ $(document).ready(function(){
+		var bid=$.session.get('aid');
+		$.ajax({
+			type:"post",
+			 url:"/business/managepreorder",
+			 data:{"bid":bid},
+			 success:function(data){
+				 showData(data);
+			 },error:function(msg){
+				 alert("看看数据有没有错");
+			 }
+		});
+	});
+ function showData(data){
+	 var str='';
+		for(var i=0;i<data.length;i++){
+			str='<tr><td>'+
+			data[i].preorder+
+			'</td><td>'+
+			data[i].readdress+
+			'</td><td>'+
+			data[i].empid+
+			'</td><td><input type="button" value="处理" onclick="editTd(this)"/>'+
+			'</td></tr>'
+			$('#tab').append(str);
+		}
+ }
+ function editTd(node){
+	 var b = node.parentNode;//按钮的表格
+	  var tr = node.parentNode.parentNode; //行
+	  /* alert(tr.rowIndex);
+	  alert(tr.cells[3].innerText); */
+	  var td  = tr.cells[1];
+	  var tdInfo=td.innerText;
+	  var te = tr.cells[2];
+	  if(td.children.length===0&&te.children.length===0){
+		  td.innerHTML="<input type='text' id='busid' placeholder='"+tdInfo+"'/>";
+		  te.innerHTML="<input type='text' id='empid' />";
+		  b.innerHTML="<input type='button' onclick='saveEditTd(this,\""+tdInfo+"\")' value='保存'/>";
+	  }
+ }
+ function saveEditTd(node,tdInfo){
+	  var b = node.parentNode;//按钮的表格
+	  var tr = node.parentNode.parentNode; //行
+	  /* alert(tr.rowIndex);
+	  alert(tr.cells[3].innerText); */
+	  var td  = tr.cells[0];
+	  var preorder=td.innerText;
+	 var end=$('#busid').val();
+	 var empid=$('#empid').val();
+	 var gl  = tdInfo.indexOf("南京市鼓楼区");
+	 var qx  = tdInfo.indexOf("南京市栖霞区");
+	 var jn  = tdInfo.indexOf("南京市江宁区");
+	 var pk  = tdInfo.indexOf("南京市浦口区");
+	 if(gl==0&&end!=1001){
+		 alert("收件快递点再看一眼！");
+	 }else if(jn==0&&end!=1003){
+		 alert("收件快递点再看一眼！");
+	 }else if(qx==0&&end!=1002){
+		 alert("收件快递点再看一眼！");
+	 }else if(pk==0&&end!=1004){
+		 alert("收件快递点再看一眼！");
+	 }else{
+		 if(end==''){
+			 alert("不派人去收件吗？");
+		 }else{
+			 $.ajax({
+				 type:"post",
+				 url:"/member/getmemorder",
+				 data:{"preorder":preorder},
+				 success:function(data){
+					 var pname=data.pname;
+					 var sender=data.sender;
+					 var receiver=data.receiver;
+					 var send = data.send;
+					 var receive = data.receive;
+					 var start  = $.session.get("aid");
+					 buildOrder(preorder,pname,sender,receiver,send,receive,start,end,empid);
+					 
+				 },error:function(XMLHttpRequest, textStatus, errorThrown) {
+		                alert(XMLHttpRequest.status);
+		                alert(XMLHttpRequest.readyState);
+		                alert(textStatus);
+				 }
+			 });
+		 }
+	 }
+function buildOrder(preorder,pname,sender,receiver,send,receive,start,end,empid){
+	/* alert("empid"+empid); */
+	$.ajax({
+		type:"post",
+		url:"/order/orderbuild",
+		data:{"pname":pname,"sender":sender,"receiver":receiver,"send":send,"receive":receive,"empid":empid,"start":start,"end":end},
+		success:function(data){
+			var oid = data.orderid;
+			addOrderId(preorder,oid);
+		},error:function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(XMLHttpRequest.status);
+            alert(XMLHttpRequest.readyState);
+            alert(textStatus);
+	 }
+	});
+}
+	  
+ }
+ function addOrderId(preorder,oid){
+	 $.ajax({
+		 type:"post",
+		 url:"/member/addorderid",
+		 data:{"preorder":preorder,"orderid":oid},
+		 success:function(data){
+			 alert("预约单处理成功！");
+			 window.location.reload();
+		 },error:function(XMLHttpRequest, textStatus, errorThrown) {
+	            alert(XMLHttpRequest.status);
+	            alert(XMLHttpRequest.readyState);
+	            alert(textStatus);
+		 }
+	 });
+ }
+
+ </script>
+
+</body>
+</html>

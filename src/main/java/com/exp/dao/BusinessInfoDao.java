@@ -9,4 +9,5 @@ import com.exp.model.BusinessInfo;
 public interface BusinessInfoDao extends JpaRepository<BusinessInfo, Integer>{
 	public BusinessInfo findById(int id);
 	public List<BusinessInfo> findAll();
+	public BusinessInfo findByname(String name);
 }

@@ -18,6 +18,31 @@ public class Employer {
 	private String eName;
 	@Column(name="emp_telephone")
 	private String eTele;
+	@Column(name="type")
+	private int type;
+	@Column(name="salary")
+	private double salary;
+	@Column(name="address_id")
+	private int aId;
+	
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
+	}
+	public double getSalary() {
+		return salary;
+	}
+	public void setSalary(double salary) {
+		this.salary = salary;
+	}
+	public int getaId() {
+		return aId;
+	}
+	public void setaId(int aId) {
+		this.aId = aId;
+	}
 	public String geteTele() {
 		return eTele;
 	}

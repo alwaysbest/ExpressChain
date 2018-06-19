@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<meta charset="UTF-8">
+
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CheckinBusinessOrder</title>
+<!-- <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/> -->
+<link rel="stylesheet" th:href="@{css/bootstrap.min.css}"/>
+<link rel="stylesheet" th:href="@{css/animate.css}">
+<link rel="stylesheet" th:href="@{css/style.css}"/>
+ <link rel="stylesheet" th:href="@{font-awesome/css/font-awesome.min.css} ">
+  <script th:src="@{js/jquery-2.1.1.js}"></script>
+ <script th:src="@{js/jquery-2.1.4.min.js}"></script>
+<script th:src="@{js/jquerysession.js}"></script>
+<script th:src="@{js/bootstrap.min.js}"></script>
+<script th:src="@{js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+<script th:src="@{js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+<!-- Custom and plugin javascript -->
+<script th:src="@{js/inspinia.js}"></script>
+<script th:src="@{js/plugins/pace/pace.min.js}"></script>
+<script th:src="@{js/plugins/wow/wow.min.js}"></script>
+ 
+  <script th:inline="javascript">
+ 	
+ 	
+ 	if($.session.get('userid')==null){
+ 		window.location.href="/login";
+ 	}
+ 	
+ </script>
+</head>
+<body id="wrapper">
+	<div class  ="row border-bottom">
+	<div style="margin-left:30px;margin-top:10px"  >
+	<img th:src="@{img/home.png}"/>
+	</div>
+	<div class="navbar-header nav navbar-top-links">
+	<strong><a class="navbar-brand" href="/hello"><span class="m-r-sm text-muted welcome-message" style="font-size:30px">EXPRESS＋</span></a></strong>
+	</div>
+	</div>
+	 <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-sm-6" style="margin-top:20px">
+                 <label style="font-size:30px;margin-left:10px">营业中心<span id="aid"></span></label>
+                <label style="margin-left:10px">员工编号：<span id="userlabel"></span></label>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb" style="margin-top:20px">
+
+                    <li class="active" style="font-size:25px">
+                        <a href="/buildOrder">创建订单</a>
+                    </li>
+                    <li class="active" style="font-size:25px;margin-left:60px">
+                        <a href="/managePreOrder">处理预约</a>
+                    </li>
+                    
+                    <li class="active" style="color: #19aa8d;font-size:25px;margin-left:60px" >
+                        <a href="/checkinBOrder">  管理入库</a>
+                    </li>
+                    <li class="text－center" style="font-size:25px;margin-left:60px">
+                         <a href="/checkoutBOrder">  管理出库</a>
+                    </li>
+
+                </ol>
+            </div>
+        </div>
+         <div class="row main " >
+
+    <div class=" col-md-8 article-content"style="margin-left:150px">
+         <div class="card">
+         	<div class="card-block">
+
+				<div class="ibox float-e-margins">
+					<div class="row" style="margin-top:10px">
+						<div class="col-sm-1"><img th:src="@{img/bill.png}"/></div>
+						
+						<blockquote>
+						
+    						<p style="font-size:25px;">管理入库</p>
+						</blockquote>
+					</div>
+					
+
+                     <div class="ibox-content">
+						<table id="tab" border="1" width="100%">
+							<tr>
+								<th>中心编号</th>
+								<th>订单编号</th>
+								<th>订单状态</th>
+								<th>入库时间</th>
+								<th>添加时间</th>
+								<th>下一站点</th>
+							</tr>
+						</table>
+						
+                     </div>
+				</div>
+
+   
+
+            
+
+			</div>
+		</div>
+      </div>
+
+  </div>
+   <script>
+
+	if($.session.get('userid')==null){
+		window.location.href="/login";
+	}else{
+		$('#aid').text($.session.get('aid'));
+		
+		$('#userlabel').text($.session.get('userid'));
+	}
+	
+	$(document).ready(function(){
+		var bid=$.session.get('aid');
+		$.ajax({
+			type:"post",
+			 url:"/business/bordercheckin",
+			 data:{"bid":bid},
+			 success:function(data){
+				 showData(data);
+			 },error:function(msg){
+				 alert("看看数据有没有错");
+			 }
+		});
+	});
+	function showData(data){
+			var str='';
+			for(var i=0;i<data.length;i++){
+				str='<tr><td id="bid">'+
+				data[i].bid+
+				'</td><td id="oid">'+
+				data[i].oid+'</td><td>'+
+				data[i].status+
+				'</td><td  id="intime" >'+
+				data[i].intime+
+				'</td><td><input id="'+
+				i+
+				'"'+
+				'type="button" value="修改" onclick="editTd(this)"/>'+
+				'</td><td>'+
+				data[i].next+
+				'</td></tr>'
+				$('#tab').append(str);
+			}
+	}
+	function editTd(node){
+		  var b = node.parentNode;//按钮的表格
+		  var tr = node.parentNode.parentNode; //行
+		  /* alert(tr.rowIndex);
+		  alert(tr.cells[3].innerText); */
+		  var td  = tr.cells[3];
+		  if(td.children.length===0){
+			  td.innerHTML="<input type='text' id='time' />";
+			  b.innerHTML="<input type='button' onclick='saveEditTd(this)' value='保存'/>";
+		  }
+		  
+	}
+	function saveEditTd(node){
+		var b = node.parentNode;//按钮的表格
+		var tr = node.parentNode.parentNode; //行
+		var td  = tr.cells[3];
+		var text=document.getElementById("time").value;
+		var r=text.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/); 
+		if(r==null){
+		      alert("请输入格式正确的日期\n\r日期格式：yyyy-mm-dd\n\r例    如：2008-08-08\n\r");
+		    
+		 }else{
+			 td.innerText=text;
+			 var bid= tr.cells[0].innerText;
+			 var oid = tr.cells[1].innerText;
+			 $.ajax({
+				 type:"post",
+				 url:"/business/updatecheckin",
+				 data:{"bid":bid,"oid":oid,"time":text},
+				 success:function(data){
+					 window.location.reload();
+				 },error:function(XMLHttpRequest, textStatus, errorThrown) {
+		                alert(XMLHttpRequest.status);
+		                alert(XMLHttpRequest.readyState);
+		                alert(textStatus);
+				 }
+			 });
+		 }
+		
+	}
+	
+	
+	</script>
+
+</body>
+</html>

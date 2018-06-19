@@ -9,18 +9,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.exp.dao.RouteDao;
 import com.exp.model.Route;
+import com.exp.model.Warehouse;
+import com.exp.model.WarehouseInfo;
 import com.exp.service.RouteService;
+import com.exp.service.WareService;
 
 @RestController
 public class test {
 	
 	@Autowired
-	RouteService routeService;
-	@RequestMapping("/user")
-	String hello() {
+	WareService wareService;
+	@RequestMapping("/test")
+	void  hello() {
 		//UserDao userDao = null;
 		
-	return routeService.getShortestRoute(1001,1002);
+		wareService.buildShelf(2002,200203, "货架", 1000);
 		
 	}
 	

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<meta charset="UTF-8">
+
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Access</title>
+<!-- <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/> -->
+<link rel="stylesheet" th:href="@{css/bootstrap.min.css}"/>
+<link rel="stylesheet" th:href="@{css/animate.css}">
+<link rel="stylesheet" th:href="@{css/style.css}"/>
+ <link rel="stylesheet" th:href="@{font-awesome/css/font-awesome.min.css} ">
+  <script th:src="@{js/jquery-2.1.1.js}"></script>
+ <script th:src="@{js/jquery-2.1.4.min.js}"></script>
+<script th:src="@{js/jquerysession.js}"></script>
+<script th:src="@{js/bootstrap.min.js}"></script>
+<script th:src="@{js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+<script th:src="@{js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+<!-- Custom and plugin javascript -->
+<script th:src="@{js/inspinia.js}"></script>
+<script th:src="@{js/plugins/pace/pace.min.js}"></script>
+<script th:src="@{js/plugins/wow/wow.min.js}"></script>
+ 
+  <script th:inline="javascript">
+ 	
+ 	
+ 	if($.session.get('userid')==null){
+ 		window.location.href="/login";
+ 	}
+ 	
+ </script>
+</head>
+<body id="wrapper">
+	<div class  ="row border-bottom">
+	<div style="margin-left:30px;margin-top:10px"  >
+	<img th:src="@{img/home.png}"/>
+	</div>
+	<div class="navbar-header nav navbar-top-links">
+	<strong><a class="navbar-brand" href="/hello"><span class="m-r-sm text-muted welcome-message" style="font-size:30px">EXPRESS＋</span></a></strong>
+	</div>
+	</div>
+	 <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-sm-6" style="margin-top:20px">
+                <label style="font-size:30px;margin-left:10px">机构中心<span id="aid"></span></label>
+                <label style="margin-left:10px">员工编号：<span id="userlabel"></span></label>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb" style="margin-top:20px">
+
+                    <li class="active" style="font-size:25px">
+                        <a href="/manageEmployer">管理员工</a>
+                    </li>
+                    
+                    <li class="active" style="font-size:25px;margin-left:60px;color: #19aa8d" >
+                        <a href="/access"> 管理权限</a>
+                    </li>
+                    
+
+                </ol>
+            </div>
+        </div>
+         <div class="row main " >
+
+    <div class=" col-md-8 article-content"style="margin-left:150px">
+         <div class="card">
+         	<div class="card-block">
+
+				<div class="ibox float-e-margins">
+					<div class="row" style="margin-top:10px">
+						<div class="col-sm-1"><img th:src="@{img/employer.png}"/></div>
+						
+						<blockquote>
+						
+    						<p style="font-size:25px;">管理权限</p>
+						</blockquote>
+					</div>
+					
+
+                     <div class="ibox-content">
+						
+						
+                     </div>
+				</div>
+
+   
+
+            
+
+			</div>
+		</div>
+      </div>
+
+  </div>
+  <script>
+
+	if($.session.get('userid')==null){
+		window.location.href="/login";
+	}else{
+		$('#aid').text($.session.get('aid'));
+		
+		$('#userlabel').text($.session.get('userid'));
+	}
+	</script>
+	
+
+</body>
+</html>

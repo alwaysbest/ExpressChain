@@ -11,7 +11,13 @@ import javax.persistence.Table;
 public class Business {
 	@Id
 	@Column(name="id")
-	private int id;
+	private String id;
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	@Column(name = "business_id")
 	private int bId;
 	@Column(name = "business_order")
@@ -30,12 +36,7 @@ public class Business {
 		this.bId=bId;
 	}
 	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+	
 	public String getbOrder() {
 		return bOrder;
 	}

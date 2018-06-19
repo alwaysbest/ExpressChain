@@ -12,11 +12,12 @@ import javax.persistence.Table;
 public class Warehouse {
 	@Id
 	@Column(name="id")
-	private int id;
+	private String id;
+	
 	@Column(name="ware_id")
 	private int wId;
-	@Column(name="ware_store")
-	private int wStore;
+	@Column(name="shelf_id")
+	private int sId;
 	@Column(name="ware_order")
 	private String woId;
 	@Column(name="ware_order_status")
@@ -25,10 +26,11 @@ public class Warehouse {
 	private Date woIntime;
 	@Column(name="ware_order_outtime")
 	private Date woOuttime;
-	public int getId() {
+	
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public int getwId() {
@@ -37,11 +39,11 @@ public class Warehouse {
 	public void setwId(int wId) {
 		this.wId = wId;
 	}
-	public int getwStore() {
-		return wStore;
+	public int getsId() {
+		return sId;
 	}
-	public void setwStore(int wStore) {
-		this.wStore = wStore;
+	public void setsId(int sId) {
+		this.sId = sId;
 	}
 	public String getWoId() {
 		return woId;

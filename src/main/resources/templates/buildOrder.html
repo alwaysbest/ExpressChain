@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<meta charset="UTF-8">
+
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BuildOrder</title>
+<!-- <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/> -->
+<link rel="stylesheet" th:href="@{css/bootstrap.min.css}"/>
+<link rel="stylesheet" th:href="@{css/animate.css}">
+<link rel="stylesheet" th:href="@{css/style.css}"/>
+ <link rel="stylesheet" th:href="@{font-awesome/css/font-awesome.min.css} "/>
+ <Link rel="stylesheet" th:href="@{css/plugins/iCheck/custom.css}"/>
+ <Link rel="stylesheet" th:href="@{css/plugins/steps/jquery.steps.css}"/>
+ <script th:src="@{js/jquery-2.1.1.js}"></script>
+ <script th:src="@{js/jquery-2.1.4.min.js}"></script>
+<script th:src="@{js/jquerysession.js}"></script>
+<script th:src="@{js/bootstrap.min.js}"></script>
+<script th:src="@{js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+<script th:src="@{js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+<!-- Custom and plugin javascript -->
+<script th:src="@{js/inspinia.js}"></script>
+<script th:src="@{js/plugins/pace/pace.min.js}"></script>
+<script th:src="@{js/plugins/wow/wow.min.js}"></script>
+ 
+  <script th:inline="javascript">
+ 	
+ 	
+ 	if($.session.get('userid')==null){
+ 		window.location.href="/login";
+ 	}
+ 	
+ </script>
+</head>
+<body id="wrapper">
+	<div class  ="row border-bottom">
+	<div style="margin-left:30px;margin-top:10px"  >
+	<img th:src="@{img/home.png}"/>
+	</div>
+	<div class="navbar-header nav navbar-top-links">
+	<strong><a class="navbar-brand" href="/hello"><span class="m-r-sm text-muted welcome-message" style="font-size:30px">EXPRESS＋</span></a></strong>
+	</div>
+	</div>
+	 <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-sm-6" style="margin-top:20px">
+                <label style="font-size:30px;margin-left:10px">营业中心<span id="aid"></span></label>
+                <label style="margin-left:10px">员工编号：<span id="userlabel"></span></label>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb" style="margin-top:20px">
+
+                    <li class="active" style="color: #19aa8d;font-size:25px">
+                        <a href="/buildOrder">创建订单</a>
+                    </li>
+                    <li class="active" style="font-size:25px;margin-left:60px">
+                        <a href="/managePreOrder">处理预约</a>
+                    </li>
+                    
+                    <li class="active" style="font-size:25px;margin-left:60px" >
+                        <a href="/checkinBOrder">   管理入库</a>
+                    </li>
+                    <li class="active" style="font-size:25px;margin-left:60px">
+                        <a href="/checkoutBOrder"> 管理出库</a>
+                    </li>
+
+                </ol>
+            </div>
+        </div>
+         <div class="row main " >
+
+    <div class=" col-md-8 article-content"style="margin-left:150px">
+         <div class="card">
+         	<div class="card-block">
+
+				<div class="ibox float-e-margins">
+					<div class="row" style="margin-top:10px">
+						<div class="col-sm-1"><img th:src="@{img/bill.png}"/></div>
+						
+						<blockquote>
+						
+    						<p style="font-size:25px;">创建订单</p>
+						</blockquote>
+					</div>
+					
+
+                     <div class="ibox-content">
+						 <form method="post" >
+                                <!-- <div class="row form-group" hidden="hidden"><label class="col-sm-4 control-label">用户名称 *</label>
+                                    <div class="col-sm-6">
+                                        <input id="userId" name="uid" type="text" value=$.session.get('userid') placeholder="请填写用户名称" class="form-control ">
+                                    </div>
+
+                                </div> -->
+
+                                    <div class="row form-group"><label class="col-sm-3 control-label">请输入商品名称 *</label>
+                                        <div class="col-sm-6">
+                                            <input id="pName" name="Pname" type="text" placeholder="请填写商品名称" class="form-control required">
+                                        </div>
+                                   
+                                      </div>
+
+                                  <div class="row form-group"><label class="col-sm-3 control-label"> 输入寄件人名字*</label>
+                                    <div class="col-sm-6">
+                                         <input id="sender" name="Sender" type="text" placeholder="请填写寄件人名字" class="form-control required">
+                                    </div>
+
+                                </div>
+                                
+                                <div class="row form-group"><label class="col-sm-3 control-label"> 输入收件人名字*</label>
+                                    <div class="col-sm-6">
+                                         <input id="receiver" name="Receiver" type="text" placeholder="请填写收件人名字" class="form-control required">
+                                    </div>
+
+                                </div>
+                                   
+
+                                <div class="row form-group"><label class="col-sm-3 control-label"> 寄件人联系方式*</label>
+                                    <div class="col-sm-6">
+                                         <input id="send" name="Send" type="text" placeholder="请填写寄件人联系方式" class="form-control required">
+                                    </div>
+
+                                </div>
+                                
+                                <div class="row form-group"><label class="col-sm-3 control-label"> 收件人联系方式*</label>
+                                    <div class="col-sm-6">
+                                         <input id="receive" name="Receive" type="text" placeholder="请填写收件人联系方式" class="form-control ">
+                                    </div>
+
+                                </div>
+
+                                <div class="hr-line-dashed"></div>
+                               
+                                <div class="row form-group"><label class="col-sm-3 control-label">设置寄件人地点*</label>
+                                    <div class="col-sm-6">
+                                       <input id="start" name="Start" type="text" placeholder="请填写寄件人地点" class="form-control ">
+                                    </div>
+
+                                </div>
+                               <div class="row form-group"><label class="col-sm-3 control-label">设置收件人地点*</label>
+                                    <div class="col-sm-6">
+                                       <input id="end" name="End" type="text" placeholder="请填写收件人地点" class="form-control ">
+                                    </div>
+
+                                </div>
+
+                                <div class="row form-group" align="center">
+                                    <div  >
+                                        <button style="margin-left:200px"class="btn btn-white" type="button" id="cancel">取消</button>
+                                        <button class="btn btn-primary" type="button" id="build">提交</button>
+                                    </div>
+                                </div>
+
+                            </form>
+						
+                     </div>
+				</div>
+
+   
+
+            
+
+			</div>
+		</div>
+      </div>
+
+  </div>
+ <script>
+
+	if($.session.get('userid')==null){
+		window.location.href="/login";
+	}else{
+		$('#aid').text($.session.get('aid'));
+		
+		$('#userlabel').text($.session.get('userid'));
+	}
+ $('#cancel').click(function(){
+	 window.location.reload();
+ });
+ $('#build').click(function(){
+	 if($('#pName').val()==''){
+		 alert("商品名称不能为空！");
+	 }else if($('#sender').val()==''){
+		 alert("寄件人不能为空！");
+	 }else if($('#receiver').val()==''){
+		 alert("收件人不能为空！");
+	 }else if($('#send').val()==''){
+		 alert("联系方式不能为空！");
+	 }else if($('#receive').val()==''){
+		 alert("联系方式不能为空！");
+	 }else if($('#start').val()==''){
+		 alert("寄件地址不能为空！");
+	 }else if($('#end').val()==''){
+		 alert("收件地址不能为空！");
+	 }else{
+		 var pname=$('#pName').val();
+		 var sender=$('#sender').val();
+		 var receiver=$('#receiver').val();
+		 var send=$('#send').val();
+		 var receive=$('#receive').val();
+		 var empid=$.session.get("userid");
+		 var start=$('#start').val();
+		 var end=$('#end').val();
+		/*  alert("1:"+pname+sender+receiver+send+receive+empid+start+end); */
+		 $.ajax({
+			 type:"post",
+			 url:"/order/orderbuild",
+			 data:{"pname":pname,"sender":sender,"receiver":receiver,"send":send,"receive":receive,"empid":empid,"start":start,"end":end},
+			 success:function(data){
+					alert("订单编号："+data.orderid+"\n"+"预定路线："+data.route);
+					window.location.reload();
+				},error:function(XMLHttpRequest, textStatus, errorThrown) {
+	                alert(XMLHttpRequest.status);
+	                alert(XMLHttpRequest.readyState);
+	                alert(textStatus);
+	                
+	            }
+		 });
+	 }
+ });
+ </script>
+
+</body>
+</html>

@@ -14,8 +14,8 @@ import com.exp.service.OrderService;
 public class route {
 	@Autowired
 	OrderService orderService;
-	@RequestMapping("/order")
+	@RequestMapping("/ordertest")
 	Order newOrder() {
-		return orderService.getOrder("衣柜", "寄件者2", "收件者2", "18260039677", "18260049677", 1, 2, 1001, 1002, 0);
+		return orderService.getOrder("衣柜", "寄件者2", "收件者2", "18260039677", "18260049677", 1,  1001, 1003, 0);
 	}
 }

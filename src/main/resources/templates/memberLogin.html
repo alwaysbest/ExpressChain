@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<meta charset="UTF-8">
+<title>memberLogin</title>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Login</title>
+<!-- <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/> -->
+<link rel="stylesheet" th:href="@{css/bootstrap.min.css}"/>
+<link rel="stylesheet" th:href="@{css/animate.css}">
+<link rel="stylesheet" th:href="@{css/style.css}"/>
+ <link rel="stylesheet" th:href="@{font-awesome/css/font-awesome.min.css} ">
+<script th:src="@{js/jquery-2.1.1.js}"></script>
+<script th:src="@{js/jquerysession.js}"></script>
+<script th:src="@{js/bootstrap.min.js}"></script>
+<script th:src="@{js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+<script th:src="@{js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+<!-- Custom and plugin javascript -->
+<script th:src="@{js/inspinia.js}"></script>
+<script th:src="@{js/plugins/pace/pace.min.js}"></script>
+<script th:src="@{js/plugins/wow/wow.min.js}"></script>
+</head>
+<body id="wrapper">
+
+	<div class  ="row border-bottom">
+	<div style="margin-left:30px;margin-top:10px"  >
+	<img th:src="@{img/home.png}"/>
+	</div>
+	<div class="navbar-header nav navbar-top-links">
+	<strong><a class="navbar-brand" href="/hello"><span class="m-r-sm text-muted welcome-message" style="font-size:30px">EXPRESS＋</span></a></strong>
+	</div>
+	</div>
+	<div class="middle-box text-center loginscreen animated fadeInDown">
+	 <div>
+            <div>
+
+                <h1 class="logo-name text－left" style="font-size: 113px">EXP+</h1>
+
+            </div>
+            <h3>欢迎加入Express＋</h3>
+            <p>
+            </p>
+
+            <form class="m-t" role="form" method="post">
+                <div class="form-group">
+                    <input type="text" id="memId" name="userid" class="form-control" placeholder="请输入会员编号" >
+                </div>
+                <button type="button" id="login"class="btn btn-primary block full-width m-b">登录</button>
+
+  
+  
+            </form>
+        </div>
+		
+	</div>
+	<script>
+		$('#login').click(function(){
+			if($('#memId').val()==''){
+				alert("请输入正确的会员编号");
+			}else{
+				var memid = $('#memId').val();
+				$.ajax({
+					type:"post",
+					url:"/member/checklogin",
+					data:{"memid":memid},
+					success:function(data){
+						if(data==0){
+							alert("查无此人");
+							window.location.reload();
+						}else{
+							$.session.set("memid",data);
+							window.location.href="/buildpreOrder";
+						}
+					},error:function(XMLHttpRequest, textStatus, errorThrown) {
+		                alert(XMLHttpRequest.status);
+		                alert(XMLHttpRequest.readyState);
+		                alert(textStatus);
+		               
+		            }
+				});
+			}
+		});
+	</script>
+
+
+</body>
+</html>

@@ -11,6 +11,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.exp.dao.RouteDao;
 import com.exp.model.Edge;
@@ -20,6 +21,7 @@ import com.exp.service.RouteService;
 import com.exp.service.WareService;
 
 @Service
+@Transactional
 public class RouteImpl implements RouteService {
 	@Autowired
 	WareService wareService;
@@ -58,12 +60,13 @@ public class RouteImpl implements RouteService {
             int a = pointMap.get(arr[u][0]);
             int b = pointMap.get(arr[u][1]);
             mMatrix[a][b] = arr[u][2];
+            mMatrix[b][a] = arr[u][2];
         }
 
-        RouteUtil graphAlogrithm = new RouteUtil(arr.length, pointArr, mMatrix);
+        RouteUtil routeUtil= new RouteUtil(arr.length, pointArr, mMatrix);
         int[] prev = new int[pointArr.length];
         int[] dist = new int[pointArr.length];
-       return graphAlogrithm.dijkstra(pointMap.get(start), prev, dist,end);
+       return routeUtil.dijkstra(pointMap.get(start), prev, dist,pointMap.get(end));
 		
 	}
 	

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<meta charset="UTF-8">
+<meta charset="UTF-8">
+
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>memberOrder</title>
+<link rel="stylesheet" th:href="@{css/bootstrap.min.css}"/>
+<link rel="stylesheet" th:href="@{css/animate.css}">
+<link rel="stylesheet" th:href="@{css/style.css}"/>
+ <link rel="stylesheet" th:href="@{font-awesome/css/font-awesome.min.css} "/>
+ <Link rel="stylesheet" th:href="@{css/plugins/iCheck/custom.css}"/>
+ <Link rel="stylesheet" th:href="@{css/plugins/steps/jquery.steps.css}"/>
+  
+ <script th:src="@{js/jquery-2.1.1.js}"></script>
+ <script th:src="@{js/jquery-ui.js}"></script>
+ <script th:src="@{js/jquery-2.1.4.min.js}"></script>
+<script th:src="@{js/jquerysession.js}"></script>
+<script th:src="@{js/bootstrap.min.js}"></script>
+<script th:src="@{js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+<script th:src="@{js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+<!-- Custom and plugin javascript -->
+<script th:src="@{js/inspinia.js}"></script>
+<script th:src="@{js/plugins/pace/pace.min.js}"></script>
+<script th:src="@{js/plugins/wow/wow.min.js}"></script>
+ 
+  <script th:inline="javascript">
+ 	
+ 	
+ 	if($.session.get('memid')==null){
+ 		window.location.href="/login";
+ 	}
+ 	
+ </script>
+</head>
+<body>
+<div class  ="row border-bottom">
+	<div style="margin-left:30px;margin-top:10px"  >
+	<img th:src="@{img/home.png}"/>
+	</div>
+	<div class="navbar-header nav navbar-top-links">
+	<strong><a class="navbar-brand" href="/hello"><span class="m-r-sm text-muted welcome-message" style="font-size:30px">EXPRESS＋</span></a></strong>
+	</div>
+	</div>
+	 <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-sm-6" style="margin-top:20px">
+                <label style="font-size:30px;margin-left:10px">尊敬的会员<span id="memid" style="color:#6848b9"></span></label>
+               
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb" style="margin-top:30px">
+
+                    <li class="active" style="font-size:25px">
+                        <a href="/buildpreOrder">预约订单</a>
+                    </li>
+                    
+                    <li class="active" style="color: #19aa8d;font-size:25px;margin-left:60px" >
+                        <a href="/checkmemOrder">  查看订单</a>
+                    </li>
+                    
+
+                </ol>
+            </div>
+        </div>
+           <div class="row main " >
+
+    <div class=" col-md-8 article-content"style="margin-left:150px">
+         <div class="card">
+         	<div class="card-block">
+
+				<div class="ibox float-e-margins">
+					<div class="row" style="margin-top:10px">
+						<div class="col-sm-1"><img th:src="@{img/bill.png}"/></div>
+						
+						<blockquote>
+						
+    						<p style="font-size:25px;">预约订单</p>
+						</blockquote>
+					</div>
+					
+
+                     <div class="ibox-content">
+						<table id="tabpre" border="1" width="100%">
+							<tr>
+								<th>预约单号</th>
+								<th>寄件人名</th>
+								<th>收件人名</th>
+								<th>商品信息</th>
+								<th>营业厅名</th>
+								<th>信息操作</th>
+							</tr>
+						</table>
+						
+                     </div>
+				</div>
+				
+						
+				<div class="ibox float-e-margins">
+					<div class="row" style="margin-top:10px">
+						<div class="col-sm-1"><img th:src="@{img/bill.png}"/></div>
+						<blockquote>
+    						<p style="font-size:25px;">订单进行中</p>
+						</blockquote>
+					</div>
+					
+
+                     <div class="ibox-content">
+						<table id="tabnow" border="1" width="100%">
+							<tr>
+								<th>订单编号</th>
+								<th>寄件人名</th>
+								<th>收件人名</th>
+								<th>商品信息</th>
+								<th>营业厅名</th>
+							</tr>
+						</table>
+						
+                     </div>
+				</div>
+				
+				<div class="ibox float-e-margins">
+					<div class="row" style="margin-top:10px">
+						<div class="col-sm-1"><img th:src="@{img/bill.png}"/></div>
+						
+						<blockquote>
+						
+    						<p style="font-size:25px;">历史订单</p>
+						</blockquote>
+					</div>
+					
+
+                     <div class="ibox-content">
+						<table id="tabpast" border="1" width="100%">
+							<tr>
+								<th>订单编号</th>
+								<th>寄件人名</th>
+								<th>收件人名</th>
+								<th>商品信息</th>
+								<th>营业厅名</th>
+							</tr>
+						</table>
+						
+                     </div>
+				</div>
+				
+				
+				
+
+   
+
+            
+
+			</div>
+		</div>
+      </div>
+
+  </div>
+  <div class="modal fade" id="changeInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				 <div class="modal-dialog">
+				 <div class="modal-content">
+				  <div class="modal-body">
+				  <form id="preOrder" method="post">
+				  
+				  </form>
+				  
+				  </div>
+				  <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="updateChange()">提交</button>
+           		 </div>
+				 </div>
+				 </div>
+				</div>
+				
+				
+				<div class="modal fade" id="delInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				 <div class="modal-dialog">
+				 <div class="modal-content">
+				  <div class="modal-body ">
+				  <label id="delorder" class="row">删除预约订单：</label>
+				  <P>此操作不可逆，确定删除吗？</P>
+				  
+				  </div>
+				  <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="confirmDel()">确定</button>
+           		 </div>
+				 </div>
+				 </div>
+				</div>
+
+<script>
+if($.session.get('memid')==null){
+	window.location.href="/login";
+}else{
+	
+	
+	$('#memid').text($.session.get('memid'));
+}
+var memid = $.session.get('memid');
+$(document).ready(function(){
+	$.ajax({
+		type:"post",
+		url:"/member/checkmempreorder",
+		data:{"memid":memid},
+		success:function(data){
+			showData(data);
+		},error:function(msg){
+			 alert("看看数据有没有错");
+		 }
+	});
+	$.ajax({
+		type:"post",
+		url:"/member/checkmemnoworder",
+		data:{"memid":memid},
+		success:function(data){
+			showDataNow(data);
+			/* alert(data[0].orderid); */
+		},error:function(msg){
+			 alert("看看数据有没有错");
+		 }
+	});
+	
+	$.ajax({
+		type:"post",
+		url:"/member/checkmemhisorder",
+		data:{"memid":memid},
+		success:function(data){
+			showDataPast(data);
+		},error:function(msg){
+			 alert("看看数据有没有错");
+		 }
+	});
+	
+});
+
+function showDataPast(data){
+	
+	var str='';
+	for(var i=0;i<data.length;i++){
+		str='<tr><td>'+
+		data[i].orderid+
+		'</td><td>'+
+		data[i].sename+'</td><td>'+
+		data[i].rename+
+		'</td><td>'+
+		data[i].goodinfo+
+		'</td><td>'+
+		data[i].buname+
+		'</td><tr>'
+		$('#tabpast').append(str);
+	}
+}
+function showDataNow(data){
+	var str='';
+	for(var i=0;i<data.length;i++){
+		str='<tr><td>'+
+		data[i].orderid+
+		'</td><td>'+
+		data[i].sename+'</td><td>'+
+		data[i].rename+
+		'</td><td>'+
+		data[i].goodinfo+
+		'</td><td>'+
+		data[i].buname+
+		'</td><tr>'
+		$('#tabnow').append(str);
+	}
+}
+function showData(data){
+	var str='';
+	for(var i=0;i<data.length;i++){
+		str='<tr><td >'+
+		data[i].preorder+
+		'</td><td >'+
+		data[i].sename+'</td><td>'+
+		data[i].rename+
+		'</td><td>'+
+		data[i].goodinfo+
+		'</td><td>'+
+		data[i].buname+
+		'</td><td><input id="'+
+		i+
+		'"'+
+		'type="button" value="修改" data-toggle="modal"  onclick="showDialog(this)"/><input type="button" value="删除" onclick="delOrder(this)"/>'+
+		'</td></tr>'
+		$('#tabpre').append(str);
+	}
+}
+function showDialog(node){
+	$('#changeInfo').modal('show');
+	var tr = node.parentNode.parentNode; 
+	var preorder  = tr.cells[0].innerText;
+	$.ajax({
+		type:"post",
+		url:"/member/getmemorder",
+		data:{"preorder":preorder},
+		success:function(data){
+			var str='';
+			str='<div class="row form-group"><label class="col-sm-3 control-label">预约订单 *</label>'+
+				'<div class="col-sm-8">'+
+				' <input id="preorder"  type="text"  class="form-control required" value="'+
+				preorder+
+				'"disable="disable"/>'+
+				'</div></div>'+
+				'<div class="row form-group"><label class="col-sm-3 control-label">商品信息 *</label>'+
+				'<div class="col-sm-8">'+
+				' <input id="goodinfo"  type="text"  class="form-control required" value="'+
+				data.pname+
+				'"/>'+
+				'</div></div>'+
+				'<div class="row form-group"><label class="col-sm-3 control-label">寄件人名 *</label>'+
+				'<div class="col-sm-8">'+
+				' <input id="sename"  type="text"  class="form-control required" value="'+
+				data.sender+
+				'"/>'+
+				'</div></div>'+
+				'<div class="row form-group"><label class="col-sm-3 control-label">收件人名 *</label>'+
+				'<div class="col-sm-8">'+
+				' <input id="rename"  type="text"  class="form-control required" value="'+
+				data.receiver+
+				'"/>'+
+				'</div></div>'+
+				'<div class="row form-group"><label class="col-sm-3 control-label">寄件联系 *</label>'+
+				'<div class="col-sm-8">'+
+				' <input id="setele"  type="text"  class="form-control required" value="'+
+				data.send+
+				'"/>'+
+				'</div></div>'+
+				'<div class="row form-group"><label class="col-sm-3 control-label">收件联系 *</label>'+
+				'<div class="col-sm-8">'+
+				' <input id="retele"  type="text"  class="form-control required" value="'+
+				data.receive+
+				'"/>'+
+				'</div></div>'+
+				'<div class="row form-group"><label class="col-sm-3 control-label">寄件地址 *</label>'+
+				'<div class="col-sm-8">'+
+				' <input id="seaddress"  type="text"  class="form-control required" value="'+
+				data.seaddress+
+				'"/>'+
+				'</div></div>'+
+				'</div></div>'+
+				'<div class="row form-group"><label class="col-sm-3 control-label">收件地址 *</label>'+
+				'<div class="col-sm-8">'+
+				' <input id="readdress"  type="text"  class="form-control required" value="'+
+				data.readdress+
+				'"/>'+
+				'</div></div>'
+				
+				
+				
+				
+				$('#preOrder').append(str);
+				
+		},error:function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(XMLHttpRequest.status);
+            alert(XMLHttpRequest.readyState);
+            alert(textStatus);
+	 }
+	});
+	
+         
+	
+}
+function updateChange(){
+	var preorder=$('#preorder').val();
+	var goodinfo=$('#goodinfo').val();
+	var sename=$('#sename').val();
+	var rename=$('#rename').val();
+	var setele=$('#setele').val();
+	var retele=$('#retele').val();
+	var seaddress=$('#seaddress').val();
+	var readdress=$('#readdress').val();
+	if(goodinfo==''){
+		  alert("商品信息不可少");
+	  }else if(sename==''){
+		  alert("寄件人不可少");
+	  }else if(rename==''){
+		  alert("收件人不可少");
+	  }else if(seaddress==''){
+		  alert("寄件人地址不可少");
+	  }else if(readdress==''){
+		  alert("收件人地址不可少");
+	  }else if(setele==''){
+		  alert("寄件人联系方式不可少");
+	  }else if(retele==''){
+		  alert("收件人联系方式不可少");
+	  }else{
+		  if(seaddress.indexOf("南京市鼓楼区")==0){
+			  var busid=1001;
+		  }else if(seaddress.indexOf("南京市栖霞区")==0){
+			  var busid=1002;
+		  }else if(seaddress.indexOf("南京市江宁区")==0){
+			  var busid=1003;
+		  }else if(seaddress.indexOf("南京市浦口区")==0){
+			  var busid=1004;
+		  }else{
+			  alert("您不在服务区内");
+			  window.location.reload();
+		  }
+		  $.ajax({
+			  type:"post",
+			  url:"/member/updatememorder",
+			  data:{"preorder":preorder,"sename":sename,"rename":rename,"seaddress":seaddress,"readdress":readdress,"setele":setele,"retele":retele,"goodinfo":goodinfo,"busid":busid},
+			  success:function(){
+				  alert("您已成功修改预约订单");
+				  window.location.reload();
+			  },error:function(XMLHttpRequest, textStatus, errorThrown) {
+	                alert(XMLHttpRequest.status);
+	                alert(XMLHttpRequest.readyState);
+	                alert(textStatus);
+	                
+	            }
+		  });
+	  }
+}
+function delOrder(node){
+	$('#delInfo').modal('show');
+	var tr = node.parentNode.parentNode; 
+	var preorder  = tr.cells[0].innerText;
+	var str='';
+	str='<input id="delorderInfo" size="45" disable="disable"style="border:none" value="'+
+	preorder+
+	'"/>'
+	$('#delorder').append(str);
+	
+}
+function confirmDel(){
+	var preorder=$('#delorderInfo').val();
+	/* alert("删除成功"+ preorder); */
+	 $.ajax({
+	type:"post",
+	url:"/member/deletememorder",
+	data:{"preorder":preorder},
+	success:function(data){
+		$('#delInfo').modal('hide');
+		alert("删除订单"+ preorder+"成功"); 
+		window.location.reload();
+	},error:function(XMLHttpRequest, textStatus, errorThrown) {
+        alert(XMLHttpRequest.status);
+        alert(XMLHttpRequest.readyState);
+        alert(textStatus);
+        
+    }
+	}); 
+}
+
+</script>
+</body>
+</html>

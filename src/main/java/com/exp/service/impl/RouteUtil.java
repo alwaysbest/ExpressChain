@@ -1,18 +1,20 @@
 package com.exp.service.impl;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Set;
+import java.util.ArrayList;
 
-import org.hibernate.loader.custom.Return;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 
 
 
 public class RouteUtil {
 	
-	 private int mEdgNum;        // 边的数量
+	
+
+	    private int mEdgNum;        // 边的数量
 	    private int[] mVexs;       // 顶点集合
 	    private int[][] mMatrix;    // 邻接矩阵
 	    private static final int INF = Integer.MAX_VALUE;   // 最大值
@@ -30,11 +32,10 @@ public class RouteUtil {
 	        // flag[i]=true表示"顶点vs"到"顶点i"的最短路径已成功获取
 	        boolean[] flag = new boolean[mVexs.length];
 	        Map<Integer, LinkedList<Integer>> map = new HashMap<Integer, LinkedList<Integer>>();
-	        
 	        // 初始化
 	        for (int i = 0; i < mVexs.length; i++) {
 	            flag[i] = false;          // 顶点i的最短路径还没获取到。
-	            prev[i] = 0;              // 顶点i的前驱顶点为0。
+	            prev[i] = vs;              // 顶点i的前驱顶点为0。
 	            dist[i] = mMatrix[vs][i];  // 顶点i的最短路径为"顶点vs"到"顶点i"的权。
 	            LinkedList<Integer> pathStack = new LinkedList<Integer>();
 	            pathStack.add(i);
@@ -67,34 +68,37 @@ public class RouteUtil {
 	                if (flag[j] == false && (tmp < dist[j])) {
 	                    dist[j] = tmp;
 	                    prev[j] = k;
-	                    LinkedList<Integer> pathStack = map.get(j);
-	                    pathStack.pop();
-	                    pathStack.push(k);
-	                    pathStack.push(j);
-	                    map.put(j, pathStack);
 	                }
 	            }
 	        }
 
 	        // 打印dijkstra最短路径的结果
 	        System.out.printf("dijkstra(%d): \n", mVexs[vs]);
-	        String reString= Integer.toString(mVexs[vs]);
-	        for (int i = 0; i < mVexs.length; i++) {
-	        		if(mVexs[i]==end) {
-	        			 System.out.printf("  shortest(%d, %d)=%d", mVexs[vs], mVexs[i], dist[i]);
-	     	            
-	     	            System.out.print("------{"+mVexs[vs]);
-	     	            LinkedList<Integer> pathStack = map.get(i);
-	     	            
-	     	            for(int m=pathStack.size()-1;m>=0;m--){
-	     	                System.out.print("-"+mVexs[pathStack.get(m)]);
-	     	                reString=reString+"-"+Integer.toString(mVexs[pathStack.get(m)]);
-	     	            }
-	     	            System.out.println("}");
-	        		}
+	        
+	            List<Integer> path = new ArrayList<Integer>();
+	            setPath(path, vs, end, prev);
+	            String reString="";
 	           
+	            
+	            	 for (Integer t : path) {
+	            		 reString=reString+"-"+Integer.toString(t);
+	                     
+	                 }
+	                 
+	                 System.out.println(reString);
+	        return reString;
+	    }
+
+	    public void setPath(List<Integer> path, int vs, int cur, int[] prev) {
+	        if (cur != vs) {
+	            for (int i = 0; i < mVexs.length; i++) {
+	                if (i == prev[cur]) {
+	                    setPath(path, vs, i, prev);
+	                    break;
+	                }
+	            }
 	        }
-			return reString;
+	        path.add(mVexs[cur]);
 	    }
 
 	    public RouteUtil(int mEdgNum, int[] mVexs, int[][] mMatrix) {
@@ -102,5 +106,6 @@ public class RouteUtil {
 	        this.mVexs = mVexs;
 	        this.mMatrix = mMatrix;
 	    }
-	   
-}
+
+	    
+	}
